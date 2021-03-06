@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EntryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::prefix('admin')->group(function() {
+    Route::view('auth/login', 'entry/login')->name('login');
+    Route::view('product', 'admin/product');
+    Route::view('user', 'admin/user');
 });

@@ -1,4 +1,9 @@
 window._ = require('lodash');
+window.BASE_URL = 'http://127.0.0.1:8000'
+window.$ = window.jQuery = require('jquery/dist/jquery');
+require('@popperjs/core');
+require('bootstrap/js/dist/index');
+require('bootstrap/js/dist/modal');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -7,6 +12,17 @@ window._ = require('lodash');
  */
 
 window.axios = require('axios');
+
+window.axios.interceptors.request.use(function (config) {
+    let token = localStorage.getItem('token');
+    if (token) {
+        config.headers = {
+            ...config.headers,
+            'Authorization': `Bearer ${token}`
+        };
+    }
+    return config;
+})
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
