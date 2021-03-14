@@ -1,30 +1,37 @@
 <?php
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
 
-function response_success($data, $meta = null)
+function response_success($data)
 {
     $result = [
         'status' => 1,
         'message' => 'Success',
         'data' => $data,
     ];
-    if ($meta) {
-        $result['meta'] = $meta;
+    if ($data instanceof LengthAwarePaginator) {
+        $result['meta'] = get_meta($data);
+        $result['data'] = $data->items();
     }
     return response()->json($result);
 }
 
-function response_error(Throwable $err)
+function response_error(Throwable $err, $status = 404)
 {
     $result = [
         'status' => 0,
         'message' => $err->getMessage()
     ];
-    if ($err instanceof ValidationException)
+    if ($err instanceof ValidationException) {
+        $status = 400;
         $result['message'] = $err->validator->errors()->first();
-    return response()->json($result);
+    }
+    if ($err instanceof AuthenticationException) {
+        $status = 401;
+    }
+    return response()->json($result, $status);
 }
 
 function get_meta(LengthAwarePaginator $paginate) {
@@ -35,4 +42,18 @@ function get_meta(LengthAwarePaginator $paginate) {
         'current_page' => $paginate->currentPage(),
         'total_page' => round($paginate->total() / $paginate->perPage()),
     ];
+}
+
+function lib_assets($path) {
+    return asset('libs/'.$path);
+}
+
+function response_web($value) {
+    if (is_array($value)) {
+        return collect($value)->map(function ($item) {
+            return (object) $item->toArray();
+        });
+    } else {
+        return (object) $value->toArray();
+    }
 }

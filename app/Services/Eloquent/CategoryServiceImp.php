@@ -20,15 +20,17 @@ class CategoryServiceImp implements CategoryService
 
     public function list()
     {
-        return $this->categoryRepository->findAll();
+        return $this->categoryRepository->findParents();
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->categoryRepository->findBySlug($slug);
     }
 
     public function store($data)
     {
-        $size = $data['size_id'];
-        if (!$this->sizeRepository->exists($size, 'id')) {
-            throw new \Error('Invalid size');
-        }
+        $this->checkSizeExist($data);
         $data['slug'] = $this->categoryRepository->toSlug($data['name']);
         return $this->categoryRepository->create($data);
     }
@@ -40,10 +42,7 @@ class CategoryServiceImp implements CategoryService
 
     public function save($data, $id)
     {
-        $size = $data['size_id'];
-        if (!$this->sizeRepository->exists($size, 'id')) {
-            throw new \Error('Invalid size');
-        }
+        $this->checkSizeExist($data);
         $oldName = $this->categoryRepository->findById($id)->name;
         if ($oldName != $data['name']) {
             $data['slug'] = $this->categoryRepository->toSlug($data['name']);
@@ -54,5 +53,15 @@ class CategoryServiceImp implements CategoryService
     public function delete($id)
     {
         return $this->categoryRepository->findByIdAndDelete($id);
+    }
+
+    public function checkSizeExist($data)
+    {
+        if (array_key_exists('size_id', $data)) {
+            $size = $data['size_id'];
+            if (!$this->sizeRepository->exists($size, 'id')) {
+                throw new \Error('Invalid size');
+            }
+        }
     }
 }

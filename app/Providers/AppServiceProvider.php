@@ -22,7 +22,6 @@ use App\Repositories\Interfaces\UserRepository;
 use App\Repositories\Eloquent\UserRepositoryImp;
 use App\Services\Eloquent\CategoryServiceImp;
 use App\Services\Eloquent\ColorServiceImp;
-use App\Services\Eloquent\DtoServiceImp;
 use App\Services\Eloquent\FileServiceImp;
 use App\Services\Eloquent\OptionServiceImp;
 use App\Services\Eloquent\OrderDetailServiceImp;
@@ -32,7 +31,6 @@ use App\Services\Eloquent\RegionServiceImp;
 use App\Services\Eloquent\SizeServiceImp;
 use App\Services\Interfaces\CategoryService;
 use App\Services\Interfaces\ColorService;
-use App\Services\Interfaces\DtoService;
 use App\Services\Interfaces\FileService;
 use App\Services\Interfaces\OptionService;
 use App\Services\Interfaces\OrderDetailService;
@@ -66,7 +64,6 @@ class AppServiceProvider extends ServiceProvider
         OrderService::class => OrderServiceImp::class,
         OrderDetailRepository::class => OrderDetailRepositoryImp::class,
         OrderDetailService::class => OrderDetailServiceImp::class,
-        DtoService::class => DtoServiceImp::class,
     ];
 
     /**

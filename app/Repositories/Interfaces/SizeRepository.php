@@ -6,5 +6,5 @@ use App\Repositories\BaseRepository;
 
 interface SizeRepository extends BaseRepository
 {
-
+    public function findParents();
 }

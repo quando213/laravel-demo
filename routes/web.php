@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\EntryController;
+use App\Http\Controllers\Web\WebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [WebController::class, 'index'])->name('index');
+Route::get('/{categorySlug}', [WebController::class, 'category'])->name('category');
+Route::get('/{categorySlug}/{productSlug}', [WebController::class, 'product'])->name('product');
 
-Route::prefix('admin')->group(function() {
-    Route::view('auth/login', 'entry/login')->name('login');
-    Route::view('product', 'admin/product');
-    Route::view('user', 'admin/user');
-});
+//Route::prefix('admin')->group(function() {
+//    Route::view('auth/login', 'entry/login')->name('login');
+//    Route::view('product', 'admin/product');
+//    Route::view('user', 'admin/user');
+//});

@@ -16,8 +16,8 @@ class AdminUploadController extends Controller
 
     public function storeImage(FileRequest $request)
     {
-        $image = $request->file('image');
+        $file = $request->file('file');
         $folder = $request->input('folder');
-        return $this->fileService->storeImage($image, $folder);
+        return $this->fileService->storeImage($file, $folder);
     }
 }

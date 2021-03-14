@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => ['required', 'string'],
+            'name' => ['nullable', 'string'],
             'email' => ['required', 'email', Rule::unique('users')],
             'password' => ['required', 'min:6'],
             'dob' => ['date'],

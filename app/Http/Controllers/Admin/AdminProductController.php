@@ -19,8 +19,9 @@ class AdminProductController extends Controller
     {
         $search = $request->input('search');
         $status = $request->input('status');
+        $limit = $request->query('limit') ? $request->query('limit') : 10;
         $category_id = $request->input('category_id');
-        return $this->productService->list($search, $status, $category_id);
+        return $this->productService->list($search, $status, $limit, $category_id);
     }
 
     public function store(ProductRequest $request)

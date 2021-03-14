@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\CommonStatus;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -53,5 +55,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function toArray()
+    {
+        $result = parent::toArray();
+        $result['status_title'] = CommonStatus::getDescription($this->status);
+        if ($this->avatar) {
+            $result['avatar_url'] = url('images/upload/'.$this->avatar);
+        }
+        return $result;
     }
 }

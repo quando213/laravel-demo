@@ -19,6 +19,11 @@ class AdminSizeController extends Controller
         return $this->sizeService->list();
     }
 
+    public function findByCategory($category_id)
+    {
+        return $this->sizeService->findByCategory($category_id);
+    }
+
     public function store(SizeRequest $request)
     {
         return $this->sizeService->store($request->validated());

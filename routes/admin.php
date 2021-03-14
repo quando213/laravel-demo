@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\AdminColorController;
 use App\Http\Controllers\Admin\AdminOptionController;
 use App\Http\Controllers\Admin\AdminProductController;
@@ -7,12 +8,13 @@ use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminUploadController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\EntryController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::prefix('auth')->group(function () {
-    Route::post('login', [EntryController::class, 'authenticate']);
-    Route::get('logout', [EntryController::class, 'logout']);
+    Route::post('login', [AdminLoginController::class, 'authenticate'])->name('login')->withoutMiddleware('auth:jwt');
+    Route::get('getProfile', [AdminLoginController::class, 'getProfile']);
+    Route::get('logout', [AdminLoginController::class, 'logout'])->name('logout')->withoutMiddleware('auth:jwt');
 });
 
 Route::prefix('users')->group(function () {
@@ -33,6 +35,7 @@ Route::prefix('categories')->group(function () {
 
 Route::prefix('sizes')->group(function () {
     Route::get('', [AdminSizeController::class, 'list']);
+    Route::get('by-category/{category_id}', [AdminSizeController::class, 'findByCategory']);
     Route::post('', [AdminSizeController::class, 'store']);
     Route::get('{id}', [AdminSizeController::class, 'detail']);
     Route::put('{id}', [AdminSizeController::class, 'save']);

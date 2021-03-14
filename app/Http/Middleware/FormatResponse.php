@@ -27,7 +27,7 @@ class FormatResponse
         $res = $next($request);
         $resData = $res->original;
         if (is_array($resData) || $resData instanceof Collection || is_object($resData) || $resData instanceof Model) {
-            if (array_key_exists('data', $resData) && array_key_exists('status', $resData) && array_key_exists('message', $resData)) {
+            if (array_key_exists('data', $resData) || array_key_exists('status', $resData) || array_key_exists('message', $resData)) {
                 return $res;
             }
             return response_success($resData);

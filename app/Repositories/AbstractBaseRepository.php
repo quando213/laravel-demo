@@ -23,12 +23,14 @@ class AbstractBaseRepository implements BaseRepository
 
     public function findAll()
     {
-        return $this->model->all();
+        return $this->model->query()->where('status', CommonStatus::ACTIVE)->get();
     }
 
     public function create($data)
     {
-        return $this->model->create($data);
+        $result = $this->model->newQuery()->create($data);
+        $result = $this->model->find($result->id);
+        return $result;
     }
 
     public function findById($id)
@@ -41,6 +43,7 @@ class AbstractBaseRepository implements BaseRepository
         $record = $this->model->find($id);
         $record->fill($data);
         $record->save();
+        $record->refresh();
         return $record;
     }
 

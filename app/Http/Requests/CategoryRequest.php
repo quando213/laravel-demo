@@ -30,6 +30,7 @@ class CategoryRequest extends FormRequest
             'sort_number' => ['numeric'],
             'parent_id' => ['numeric'],
             'size_id' => ['numeric'],
+            'icon' => ['string'],
             'status' => [Rule::in(CommonStatus::getValues())],
         ];
     }

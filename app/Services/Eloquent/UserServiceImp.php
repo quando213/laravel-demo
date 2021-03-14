@@ -7,6 +7,7 @@ namespace App\Services\Eloquent;
 
 use App\Repositories\Interfaces\UserRepository;
 use App\Services\Interfaces\UserService;
+use Illuminate\Support\Facades\Hash;
 
 class UserServiceImp implements UserService
 {
@@ -24,6 +25,7 @@ class UserServiceImp implements UserService
 
     public function store($data)
     {
+        $data['password'] = Hash::make($data['password']);
         return $this->userRepository->create($data);
     }
 
@@ -34,6 +36,9 @@ class UserServiceImp implements UserService
 
     public function save($data, $id)
     {
+        if (array_key_exists('password', $data)) {
+            $data['password'] = Hash::make($data['password']);
+        }
         return $this->userRepository->findByIdAndUpdate($data, $id);
     }
 

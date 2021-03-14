@@ -4,6 +4,7 @@
 namespace App\Repositories\Eloquent;
 
 
+use App\Enums\CommonStatus;
 use App\Models\Product;
 use App\Repositories\AbstractBaseRepository;
 use App\Repositories\Interfaces\ProductRepository;
@@ -13,9 +14,9 @@ class ProductRepositoryImp extends AbstractBaseRepository implements ProductRepo
 {
     protected $modelClass = Product::class;
 
-    public function find($search, $status, $category_id)
+    public function find($search, $status, $limit, $category_id, $size, $color, $price_min, $price_max, $sort, $order)
     {
-        $queryBuilder = $this->model->query();
+        $queryBuilder = $this->model->query()->with(['category', 'options']);
         if ($search) {
             $queryBuilder = $queryBuilder->where(function (Builder $q) use ($search) {
                 return $q->where('name', 'like', '%'.$search.'%')
@@ -28,6 +29,33 @@ class ProductRepositoryImp extends AbstractBaseRepository implements ProductRepo
         if ($category_id) {
             $queryBuilder = $queryBuilder->where('category_id', $category_id);
         }
-        return $queryBuilder->get();
+        if ($size) {
+            $queryBuilder = $queryBuilder->whereHas('options', function ($query) use ($size) {
+                $query->whereIn('size_id', $size);
+            });
+        }
+        if ($color) {
+            $queryBuilder = $queryBuilder->whereHas('options', function ($query) use ($color) {
+                $query->whereIn('color_id', $color);
+            });
+        }
+        if ($price_min) {
+            $queryBuilder = $queryBuilder->where('price', '>', $price_min);
+        }
+        if ($price_max) {
+            $queryBuilder = $queryBuilder->where('price', '<', $price_max);
+        }
+        if ($sort && $order) {
+            $queryBuilder = $queryBuilder->orderBy($sort, $order);
+        }
+        return $queryBuilder->paginate($limit);
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->model->query()
+            ->where('slug', $slug)
+            ->where('status', CommonStatus::ACTIVE)
+            ->with(['category', 'options'])->first();
     }
 }

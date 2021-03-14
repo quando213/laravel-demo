@@ -25,6 +25,6 @@ class OptionRepositoryImp extends AbstractBaseRepository implements OptionReposi
         if ($size_id) {
             $queryBuilder = $queryBuilder->where('size_id', $size_id);
         }
-        return $queryBuilder->with(['color', 'size'])->get();
+        return $queryBuilder->get();
     }
 }

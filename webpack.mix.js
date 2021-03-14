@@ -12,9 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/register.js', 'public/js')
-    .js('resources/js/login.js', 'public/js')
-    .js('resources/js/admin/product.js', 'public/js/admin')
-    .js('resources/js/admin/user.js', 'public/js/admin')
+    .js('resources/js/product-list.js', 'public/js')
+    .js('resources/js/product-detail.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [])
-    .postCss('resources/css/admin.css', 'public/css', []);

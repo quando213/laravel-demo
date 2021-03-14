@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Services\Interfaces\DtoService;
 use App\Services\Interfaces\UserService;
 use Illuminate\Http\Request;
 
@@ -12,23 +11,18 @@ use Illuminate\Http\Request;
 class AdminUserController extends Controller
 {
     private $userService;
-    private $dtoService;
 
-    public function __construct(UserService $userService, DtoService $dtoService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->dtoService = $dtoService;
     }
 
     public function list(Request $request)
     {
         $search = $request->query('search');
         $status = $request->query('status');
-        $limit = $request->query('limit') ? $request->query('limit') : 5;
-        $result = $this->userService->list($search, $status, $limit);
-        return response_success($result->map(function ($item) {
-            return $this->dtoService->userDto($item);
-        }), get_meta($result));
+        $limit = $request->query('limit') ? $request->query('limit') : 10;
+        return $this->userService->list($search, $status, $limit);
     }
 
     public function store(UserRequest $request)

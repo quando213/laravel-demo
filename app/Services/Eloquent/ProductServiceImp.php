@@ -18,9 +18,14 @@ class ProductServiceImp implements ProductService
         $this->optionRepository = $optionRepository;
     }
 
-    public function list($search, $status, $category_id)
+    public function list($search, $status, $limit, $category_id, $size = null, $color = null, $price_min = null, $price_max = null, $sort = null, $order = null)
     {
-        return $this->productRepository->find($search, $status, $category_id);
+        return $this->productRepository->find($search, $status, $limit, $category_id, $size, $color, $price_min, $price_max, $sort, $order);
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->productRepository->findBySlug($slug);
     }
 
     public function store($data)

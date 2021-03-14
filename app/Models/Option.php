@@ -17,6 +17,8 @@ class Option extends Model
         'status'
     ];
 
+    protected $with = ['size', 'color'];
+
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class);

@@ -1,25 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+@include('layout.SEO')
+@include('layout.style')
+
+<!-- Document Title
+    ============================================= -->
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{url('css/app.css')}}">
-    @yield('extraCss')
 </head>
 
-<body>
+<body class="stretched">
 
-@include('layout.header')
-<main class="container">
-    @yield('content')
-</main>
-@include('layout.footer')
+<div id="wrapper" class="clearfix">
+    @include('layout.header')
+    @yield('slider')
+    @yield('page_title')
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+                @yield('content')
+            </div>
+        </div>
+    </section>
+    @include('layout.footer')
+</div>
 
-<script src="{{url('js/app.js')}}"></script>
-@yield('extraJs')
+<div id="gotoTop" class="icon-angle-up"></div>
+
+@include('layout.script')
 </body>
 
 </html>

@@ -1,5 +1,282 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-.user-only {
+.shop .product-image, .flex-control-nav .product-image {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 177.78%;
+}
+
+.shop .product-image > a, .shop .product-image .slide a, .shop .product-image img, .flex-control-nav img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+
+@media (min-width: 1200px) {
+    .part-images-product {
+        margin-right: 8%;
+    }
+}
+
+.swatches {
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    display: flex;
+    margin: 0 -7px
+}
+
+ul.swatches {
+    list-style: none
+}
+
+.swatch-item {
+    margin-bottom: 15px;
+    padding: 0 7px;
+    width: 20%
+}
+
+.swatch-item a {
+    display: block;
+    width: 100%;
+    height: 24px;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 24px;
+    position: relative;
+    background-position: 50%;
+    background-size: cover;
+    color: #333f48;
+    text-decoration: none
+}
+
+.swatch-item span.selected {
+    width: 100%;
+    height: 2px;
+    background-color: #333f48;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    display: block
+}
+
+.price-range input::-webkit-inner-spin-button, .price-range input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.price-range input[type=number] {
+    -moz-appearance: textfield
+}
+
+.price-range input {
+    display: inline-block;
+    width: 38%
+}
+
+.widget-filter-links-clone .widget-filter-reset {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    font-size: 12px;
+    line-height: 22px
+}
+
+.widget-filter-links-clone .widget-filter-reset a {
+    color: red
+}
+
+.product-options {
+    padding: 0;
+    border: none;
+    margin: 0 0 17px
+}
+
+.product-options ul, li {
+    list-style: none
+}
+
+.product-options dl {
+    margin: 0
+}
+
+.product-options a {
+    color: #333f48
+}
+
+.product-options dt label {
+    line-height: 19px;
+    display: block;
+    text-transform: uppercase
+}
+
+.product-options dt label em {
+    display: none
+}
+
+.product-options dd {
+    padding: 0;
+    margin: 0 0 7px
+}
+
+.product-options .configurable-swatch-list {
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    display: flex
+}
+
+.product-options #configurable_swatch_color {
+    margin-bottom: 17px
+}
+
+.product-options .configurable-swatch-list li {
+    margin-right: 12px;
+    margin-bottom: 9px
+}
+
+.product-options #configurable_swatch_color li {
+    margin-bottom: 25px
+}
+
+.product-options .configurable-swatch-list .swatch-link {
+    min-width: 0 !important;
+    height: auto !important;
+    width: auto !important;
+    display: block;
+    position: relative
+}
+
+.product-options .configurable-swatch-list .swatch-label {
+    display: block;
+    line-height: 20px !important;
+    min-width: 24px !important;
+    border: 2px solid #333f48;
+    text-align: center;
+    height: 24px !important;
+    font-weight: 600;
+    padding: 0 3px
+}
+
+.product-options .configurable-swatch-list .has-image .swatch-label {
+    padding: 0
+}
+
+.product-options .configurable-swatch-list .swatch-link-80.has-image .swatch-label {
+    border: none
+}
+
+.product-options .configurable-swatch-list .swatch-label img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block
+}
+
+.product-options #configurable_swatch_size {
+    margin-bottom: 0 !important
+}
+
+.product-options .option-before {
+    transform: rotate(45deg)
+}
+
+.product-options .option-after, .product-options .option-before {
+    content: "";
+    width: 1px;
+    height: 48px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -24px;
+    z-index: 5
+}
+
+.product-options .option-after {
+    transform: rotate(-45deg)
+}
+
+.product-options .configurable-swatch-list .not-available .swatch-label {
+    border-color: #e0e0e0;
+    color: #eae9e8
+}
+
+.product-options .configurable-swatch-list .hover .swatch-label, .product-options .configurable-swatch-list .selected .swatch-label {
+    border-color: #da291c;
+    color: #da291c
+}
+
+.product-options .selected .selected-color-before {
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    background-color: #da291c
+}
+
+.product-options .selected-color-after {
+    display: block;
+    position: absolute;
+    left: 0;
+    line-height: 10px;
+    top: 100%;
+    margin-top: 8px;
+    z-index: 10;
+    color: #da291c;
+    text-transform: uppercase;
+    font-size: 10px
+}
+
+*, h1, h2, h3, h4, h5, h6, label {
+    font-family: Montserrat, sans-serif
+}
+
+.option-btn {
+    padding: 6px 10px;
+    background-color: #1abc9c;
+    color: #fff;
+    border-radius: 2px;
+    z-index: 5;
+    border: none
+}
+
+.option-btn:disabled, .option-btn[disabled] {
+    background-color: #ccc;
+    color: #666
+}
+
+.option-btn.selected {
+    background-color: inherit;
+    border: 1px solid #1abc9c;
+    color: #1abc9c
+}
+
+.out-of-stock-only {
     display: none;
+}
+
+.cart-spinner {
+    display: none;
+    cursor: default;
+}
+
+.button-border.button-default {
+    color: #1ABC9C;
+    border-color: #1ABC9C;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }

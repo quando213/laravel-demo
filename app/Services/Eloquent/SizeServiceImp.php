@@ -3,21 +3,35 @@
 
 namespace App\Services\Eloquent;
 
+use App\Repositories\Interfaces\CategoryRepository;
 use App\Repositories\Interfaces\SizeRepository;
 use App\Services\Interfaces\SizeService;
 
 class SizeServiceImp implements SizeService
 {
     private $sizeRepository;
+    private $categoryRepository;
 
-    public function __construct(SizeRepository $sizeRepository)
+    public function __construct(SizeRepository $sizeRepository, CategoryRepository $categoryRepository)
     {
         $this->sizeRepository = $sizeRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function list()
     {
-        return $this->sizeRepository->findAll();
+        return $this->sizeRepository->findParents();
+    }
+
+    public function findByCategory($category_id)
+    {
+        $result = $this->categoryRepository->findById($category_id)->size;
+        if ($result) {
+            return $result->children;
+        } else {
+            $result = $this->sizeRepository->findAll();
+        }
+        return $result;
     }
 
     public function store($data)
