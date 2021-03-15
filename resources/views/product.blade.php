@@ -41,7 +41,7 @@
             </div>
             <div class="col_two_fifth product-desc">
                 <div id="priceOptionComponent">
-                    <input type="hidden" id="options-data" value="{{ $options }}">
+                    <input type="hidden" id="product-data" value="{{ json_encode($product, true) }}">
                     <div class="product-price">
                         <ins>{{ $product->price_pretty }}₫</ins>
                     </div>
@@ -212,7 +212,7 @@
                             </div>
                         </div>
                         <div class="product-desc center">
-                            <div class="product-title"><h3><a href="{{ $product_link }}">The Anne Short</a>
+                            <div class="product-title"><h3><a href="{{ $product_link }}">{{ $product->name }}</a>
                                 </h3></div>
                             <div class="product-price">
                                 <ins>1,150,000₫</ins>

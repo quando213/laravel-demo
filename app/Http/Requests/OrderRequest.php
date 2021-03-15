@@ -37,6 +37,9 @@ class OrderRequest extends FormRequest
             $rules['is_paid'] = ['boolean'];
             $rules['status'] = [Rule::in(OrderStatus::getValues())];
         }
+        if (request()->isMethod('post')) {
+            $rules['details'] = ['required', 'array', 'min: 1'];
+        }
         return $rules;
     }
 }

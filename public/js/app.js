@@ -4931,6 +4931,14 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var cart = JSON.parse(localStorage.getItem('cart')) || [];
+var orderTotal = 0;
+cart.forEach(function (item) {
+  orderTotal += item.product.price * item.quantity;
+  $('.top-cart-items').append("<div class=\"top-cart-item clearfix\">\n                                <div class=\"top-cart-item-image\">\n                                    <a href=\"/".concat(item.product.category.slug, "/").concat(item.product.slug, "\"><img src=\"").concat(item.product.thumbnail_url, "\" alt=\"").concat(item.product.name, "\" /></a>\n                                </div>\n                                <div class=\"top-cart-item-desc\">\n                                    <a href=\"#\">").concat(item.product.name, "</a>\n                                    <span class=\"top-cart-item-price\">").concat(item.product.price_pretty, "\u20AB</span>\n                                    <span class=\"top-cart-item-quantity\">x ").concat(item.quantity, "</span>\n                                    <span class=\"top-cart-item-price\">").concat(item.option.color.name, " - ").concat(item.option.size.name, "</span>\n                                </div>\n                            </div>"));
+});
+$('#top-total-order').text(orderTotal.toLocaleString('us') + '₫');
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

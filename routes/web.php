@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [WebController::class, 'index'])->name('index');
+Route::get('/cart', [WebController::class, 'cart'])->name('cart');
+Route::get('/checkout', [WebController::class, 'checkout'])->name('checkout');
 Route::get('/{categorySlug}', [WebController::class, 'category'])->name('category');
 Route::get('/{categorySlug}/{productSlug}', [WebController::class, 'product'])->name('product');
-
-//Route::prefix('admin')->group(function() {
-//    Route::view('auth/login', 'entry/login')->name('login');
-//    Route::view('product', 'admin/product');
-//    Route::view('user', 'admin/user');
-//});

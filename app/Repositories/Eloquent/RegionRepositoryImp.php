@@ -11,7 +11,7 @@ class RegionRepositoryImp implements RegionRepository
 {
     public function getCities()
     {
-        return City::all();
+        return City::all()->sortBy('name');
     }
 
     public function getDistricts($city_id)

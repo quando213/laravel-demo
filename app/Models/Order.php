@@ -22,6 +22,8 @@ class Order extends Model
         'is_paid'
     ];
 
+    protected $with = ['city_id', 'district_id'];
+
     public function city()
     {
         return $this->belongsTo(City::class);

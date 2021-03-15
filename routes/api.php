@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\OrderController;
 use App\Http\Controllers\Web\RegionController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,5 @@ Route::prefix('regions')->group(function () {
     Route::get('cities', [RegionController::class, 'getCities']);
     Route::get('cities/{city}/districts', [RegionController::class, 'getDistricts']);
 });
+
+Route::post('order', [OrderController::class, 'create']);

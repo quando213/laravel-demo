@@ -26,12 +26,19 @@ class OptionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'product_id' => ['required', 'integer'],
-            'color_id' => ['required', 'integer'],
-            'size_id' => ['required', 'integer'],
-            'quantity' => ['required', 'integer', 'min:0'],
+        $rules = [
+            'product_id' => ['integer'],
+            'color_id' => ['integer'],
+            'size_id' => ['integer'],
+            'quantity' => ['integer', 'min:0'],
             'status' => [Rule::in(CommonStatus::getValues())],
         ];
+        if (request()->isMethod('post')) {
+            $rules['product_id'] = ['required', 'integer'];
+            $rules['color_id'] = ['required', 'integer'];
+            $rules['size_id'] = ['required', 'integer'];
+            $rules['quantity'] = ['required', 'integer', 'min:0'];
+        }
+        return $rules;
     }
 }

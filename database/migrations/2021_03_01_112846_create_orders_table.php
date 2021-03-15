@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->string('id', 6)->primary();
+            $table->string('id', 10)->primary();
             $table->string('customer_name');
             $table->integer('city_id');
             $table->integer('district_id');
@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->bigInteger('total_price');
-            $table->boolean('is_paid');
+            $table->boolean('is_paid')->default(false);
             $table->integer('status')->default(\App\Enums\OrderStatus::WAITING);
             $table->timestamps();
         });

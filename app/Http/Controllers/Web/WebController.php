@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Interfaces\CategoryService;
 use App\Services\Interfaces\ColorService;
 use App\Services\Interfaces\ProductService;
+use App\Services\Interfaces\RegionService;
 use App\Services\Interfaces\SizeService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,13 +20,15 @@ class WebController extends Controller
     private $categoryService;
     private $sizeService;
     private $colorService;
+    private $regionService;
 
-    public function __construct(ProductService $productService, CategoryService $categoryService, SizeService $sizeService, ColorService $colorService)
+    public function __construct(ProductService $productService, CategoryService $categoryService, SizeService $sizeService, ColorService $colorService, RegionService $regionService)
     {
         $this->productService = $productService;
         $this->categoryService = $categoryService;
         $this->sizeService = $sizeService;
         $this->colorService = $colorService;
+        $this->regionService = $regionService;
     }
 
     public function index()
@@ -72,8 +75,20 @@ class WebController extends Controller
         $related_products = response_web($this->productService->list(null, CommonStatus::ACTIVE, 4, $product->category_id)->items());
         return view('product', [
             'product' => $product,
-            'options' => json_encode($product->options, true),
             'related_products' => $related_products,
+        ]);
+    }
+
+    public function cart()
+    {
+        return view('cart');
+    }
+
+    public function checkout()
+    {
+        $cities = $this->regionService->getCities();
+        return view('checkout', [
+            'cities' => $cities,
         ]);
     }
 }

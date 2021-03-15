@@ -10043,3 +10043,11 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+/* CART */
+.color-product-cart {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+}
+

@@ -25,14 +25,9 @@ class OrderDetailRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
+        return [
             'option_id' => ['required', 'integer'],
             'quantity' => ['required', 'integer'],
         ];
-        if (request()->isMethod('post')) {
-            $rules['order_id'] = ['required', 'integer'];
-            $rules['product_id'] = ['required', 'integer'];
-        }
-        return $rules;
     }
 }
